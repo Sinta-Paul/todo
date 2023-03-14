@@ -1,0 +1,67 @@
+<html>
+    <link href="https://fonts.googleapis.com/css?family=Nunito Sans" rel="stylesheet">
+<style>
+    body
+    {
+        background-color:#1E1E1E;
+        font-family: "Nunito Sans";
+        max-width: max-content;
+        margin: auto;
+    }
+    .list-container
+    {
+        margin-top: 30%;
+    }
+    .heading-main{
+        color:#BDAE23;
+        font-size: 36px;
+        font-weight: 800;
+    }
+    .sub{
+        color:#ffffff;
+    }
+    .subheading{
+        margin-top: -30px;
+    }
+    .text
+    {
+        background-color:#1E1E1E;
+        width:100%;
+        box-sizing: border-box;
+        border: 1.5px solid #676666 ;
+        border-radius: 5px;
+        padding:5px;
+    }
+    .yellow{
+        color:#BDAE23;
+        font-size: 12px;
+        font-weight: 800;
+    }
+    .delete
+    {
+        margin-left: 6%;
+        text-decoration-line: none;
+    }
+    .delete:hover{
+        color:#ffffff;
+    }
+</style>
+
+<body>
+<div class="list-container">
+    <p class="heading-main">Tasks To Do</p>
+    <p class="sub subheading">Listed below are the tasks due for you.So come on get going</p>
+    <div class="task-entry">
+        <form method="POST" action="{% url 'createtask' %}">
+            {% csrf_token %}
+            <input class="text" type="text" name="task_body" placeholder="Enter your task..."/>
+        </form>
+        <p class="yellow">You have {{task_count}} new tasks</p>
+        {% for task in tasks_created %}
+        <li class="sub">{{task.task}}
+        <a class="yellow delete" href="{% url 'deletetask' task.id %}">Mark as done</a></li><br>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
